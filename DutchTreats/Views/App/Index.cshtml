@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="products-info">
+            <img src="img/FlOqw6g.png" width="500" />
+            <h3> blah </h3>
+            <ul class="products-props">
+                <li>Price : $3.89</li>
+                <li>Artist : Classified</li>
+                <li>Title : Classified</li>
+                <li>Description : Classified IT </li>
+            </ul>
+            <button class="btn btn-success" id="buyButton"> Buy </button>
+        </div>
+
+        <div id="theForm">
+            <form action="/" method="post">
+                <label> Name </label>
+                <br />
+                <input name="name" value="" />
+                <br />
+                <label> E-mail </label>
+                <br />
+                <input type="email" name="email" />
+                <br />
+                <label>Subejct</label>
+                <br />
+                <input type="text" name="subject" />
+                <br />
+                <label>Message</label>
+                <br />
+                <textarea rows="4">
+            </textarea>
+                <br />
+                <input type="submit" name="sendMessage" value="Send Message" />
+                <br />
+            </form>
+        </div>
+
+        <div>
+            <div id="loginToggle">
+                Login
+            </div>
+
+            <form class="popup-Form">
+                <div>
+                    <label>UserName</label>
+                    <input type="text" name="name" value="" />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="name" value="" />
+                </div>
+                <div>
+                    <input type="checkbox" name="name" value="" />
+                    <label>Remember me</label>
+                </div>
+                <div>
+                    <input type="submit" name="name" value="sign in" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
