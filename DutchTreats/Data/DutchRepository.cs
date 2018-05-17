@@ -55,6 +55,24 @@ namespace DutchTreats.Data
             }
         }
 
+        public Order GetOrderById(int id)
+        {
+            try
+            {
+                return _ctx.Orders
+                    .Include(i => i.Items)
+                    .ThenInclude(i => i.Product)
+                    .Where(o => o.Id == id)
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"Failed to get Order by Id: {ex}");
+                return null;
+            }
+        }
+
         public IEnumerable<Product> GetProductsByCatagory(string catagory)
         {
             try
