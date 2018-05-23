@@ -1,4 +1,5 @@
 ﻿using DutchTreats.Data;
+using DutchTreats.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -31,7 +32,7 @@ namespace DutchTreats.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to get all orders: {ex}");
-                return BadRequest();
+                return BadRequest("Failed to get all ORders");
             }
         }
 
@@ -56,6 +57,26 @@ namespace DutchTreats.Controllers
                 _logger.LogError($"Failed to get Order by Id: {ex}");
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]Order model)
+        {
+            try
+            {
+                _repository.AddEntity(model);
+                if (_repository.SaveAll())
+                {
+                    return Created($"/api/orders/{model.Id}", model);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"failed to save new order: {ex}");
+            }
+
+            return BadRequest("failed to save new order");
+
         }
     }
 }

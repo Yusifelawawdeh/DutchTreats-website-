@@ -20,6 +20,11 @@ namespace DutchTreats.Data
             _logger = logger;
         }
 
+        public void AddEntity(object model)
+        {
+            _ctx.Add(model);
+        }
+
         public IEnumerable<Order> GetAllOrders()
         {
             try
@@ -55,6 +60,22 @@ namespace DutchTreats.Data
             }
         }
 
+        public IEnumerable<Product> GetProductsByCatagory(string catagory)
+        {
+            try
+            {
+
+                return _ctx.Products
+                    .Where(p => p.Category == catagory)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get products by catagory: {ex}");
+                return null;
+            }
+        }
+
         public Order GetOrderById(int id)
         {
             try
@@ -73,22 +94,6 @@ namespace DutchTreats.Data
             }
         }
 
-        public IEnumerable<Product> GetProductsByCatagory(string catagory)
-        {
-            try
-            {
-
-                return _ctx.Products
-                    .Where(p => p.Category == catagory)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Failed to get products by catagory: {ex}");
-                return null;
-            }
-        }
-
         public bool SaveAll()
         {
             try
@@ -101,5 +106,6 @@ namespace DutchTreats.Data
                 return false;
             }
         }
+
     }
 }
