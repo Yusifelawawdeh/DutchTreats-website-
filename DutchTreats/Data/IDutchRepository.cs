@@ -8,7 +8,7 @@ namespace DutchTreats.Data
         IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductsByCatagory(string catagory);
 
-        IEnumerable<Order> GetAllOrders();
+        IEnumerable<Order> GetAllOrders(bool includeItems);
         Order GetOrderById(int id);
 
         bool SaveAll();
