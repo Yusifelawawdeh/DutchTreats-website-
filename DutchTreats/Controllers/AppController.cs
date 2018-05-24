@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DutchTreats.Data;
 using DutchTreats.Services;
 using DutchTreats.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DutchTreats.Controllers
@@ -61,6 +62,7 @@ namespace DutchTreats.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Shop()
         {
             var results = _repository.GetAllProducts();
