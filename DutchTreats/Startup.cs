@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using DutchTreats.Data;
 using DutchTreats.Data.Entities;
 using DutchTreats.Services;
@@ -44,9 +43,6 @@ namespace DutchTreats
             {
                 cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionString"));
             });
-
-            services.AddAutoMapper();
-
             services.AddTransient<INullMailService, NullMailService>();
             // support for for real mail service later
 
