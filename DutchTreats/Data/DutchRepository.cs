@@ -25,14 +25,52 @@ namespace DutchTreats.Data
             _ctx.Add(model);
         }
 
-        public IEnumerable<Order> GetAllOrders()
+        public IEnumerable<Order> GetAllOrders(bool includeItems)
         {
             try
             {
-                return _ctx.Orders
-                    .Include(o => o.Items)
-                    .ThenInclude(i => i.Product)
-                    .ToList();
+                if (includeItems)
+                {
+
+                    return _ctx.Orders
+                        .Include(o => o.Items)
+                        .ThenInclude(i => i.Product)
+                        .ToList();
+                }
+                else
+                {
+                    return _ctx.Orders.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all orders: {ex}");
+                return null;
+
+            }
+        }
+
+        public IEnumerable<Order> GetAllOrdersByUser(string username, bool includeItems)
+        {
+            try
+            {
+                if (includeItems)
+                {
+
+                    return _ctx.Orders
+                        .Where(o => o.User.UserName == username)
+                        .Include(o => o.Items)
+                        .ThenInclude(i => i.Product)
+                        .ToList();
+                }
+                else
+                {
+                    return _ctx.Orders
+                        .Where(o => o.User.UserName == username)
+                        .ToList();
+
+                }
             }
             catch (Exception ex)
             {
@@ -76,14 +114,14 @@ namespace DutchTreats.Data
             }
         }
 
-        public Order GetOrderById(int id)
+        public Order GetOrderById(string username, int id)
         {
             try
             {
                 return _ctx.Orders
                     .Include(i => i.Items)
                     .ThenInclude(i => i.Product)
-                    .Where(o => o.Id == id)
+                    .Where(o => o.Id == id && o.User.UserName == username)
                     .FirstOrDefault();
             }
             catch (Exception ex)
